@@ -10,7 +10,6 @@ interface AuthRequest {
 class AuthUserService {
   async execute({ email, password }: AuthRequest) {
     console.log ("Inicio Serviço");
-    // Verificar se o email existe
     const user = await prismaClient.user.findFirst({
       where: {
         email: email,
@@ -22,7 +21,6 @@ class AuthUserService {
       throw new Error("Email e/ou senha incorretos");
     }
 
-    // Verificar se a senha está correta
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
@@ -30,7 +28,6 @@ class AuthUserService {
       throw new Error("Email e/ou senha incorretos");
     }
     console.log ("Inicio JWT");
-    // Gerar token (JWT) com dados do usuário
     const token = sign(
       {
         name: user.name,

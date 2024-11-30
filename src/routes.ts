@@ -28,30 +28,18 @@ const router = Router();
 
 const upload = multer(uploadConfig.upload("./tmp"))
 
-//-- ROTAS USER --
 router.post('/users', new CreateUserController().handle)
-
 router.post('/session', new AuthUserController().handle)
-
 router.get('/userInfo', isAuthenticated, new DetailUserController().handle)
-
-// -- Rotas Category --
 router.post('/category', isAuthenticated, new CreateCategoryController().handle)
-
 router.get('/category', isAuthenticated, new ListCategoryController().handle)
-
-
-// -- Rotas Product
 router.post('/product', isAuthenticated, upload.single('file'), new CreateProductController().handle)
-
 router.get('/category/product', isAuthenticated, new ListByCategoryController().handle)
-
-//-- Rotas Order
 router.post('/order', isAuthenticated, new CreateOrderController().handle)
 router.delete('/order', isAuthenticated, new RemoveOrderController().handle )
 router.post('/order/add', isAuthenticated, new AddItemController().handle)
 router.delete('/order/remove', isAuthenticated, new RemoveItemController().handle)
-router.put('/order/send', isAuthenticated, new SendOrderController().handle)
+router.put('/order/enviar', isAuthenticated, new SendOrderController().handle)
 router.get('/orders', isAuthenticated, new ListOrdersController().handle)
 router.get('/order/detail', isAuthenticated, new DetailOrderController().handle)
 router.put('/order/finish', isAuthenticated, new FinishOrderController().handle)
